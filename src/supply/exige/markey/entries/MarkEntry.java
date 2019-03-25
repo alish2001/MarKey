@@ -3,15 +3,34 @@ package supply.exige.markey.entries;
 public class MarkEntry {
 
     private String name;
-    private String actualMark;
+    private double vouchers;
+    private double achieved, max;
     private double weightFactor;
     private Category category;
 
     public MarkEntry(String name, String actualMark, double weightFactor, Category category) {
         this.name = name;
-        this.actualMark = actualMark;
+        String[] tokenizer = actualMark.split("/");
+        this.achieved = Double.parseDouble(tokenizer[0]);
+        this.max = Double.parseDouble(tokenizer[1]);
         this.weightFactor = weightFactor;
         this.category = category;
+    }
+
+    public void addVoucher(){
+        this.vouchers += 0.5;
+    }
+
+    public void setVouchers(double vouchers){
+        this.vouchers = vouchers;
+    }
+
+    public double getVouchers(){
+        return vouchers;
+    }
+
+    public void setAchieved(double achieved) {
+        this.achieved = achieved;
     }
 
     public String getName() {
@@ -19,18 +38,24 @@ public class MarkEntry {
     }
 
     public String getActualMark() {
-        return actualMark;
+        return achieved + "/" + max;
+    }
+
+    public double getAchieved() {
+        return achieved;
+    }
+
+    public double getMax() {
+        return max;
     }
 
     public double getPercentage() {
-        String[] tokenizer = actualMark.split("/");
-        double achieved = Double.parseDouble(tokenizer[0]);
-        double max = Double.parseDouble(tokenizer[1]);
         return achieved / max * 100;
     }
 
     public double getEScore() {
-        return (100 - getPercentage()) * weightFactor;
+        if (max - achieved == 0) return 0;
+        return (1 - ((achieved + vouchers)/ max)) * weightFactor;
     }
 
     public double getWeightFactor() {

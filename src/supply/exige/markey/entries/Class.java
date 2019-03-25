@@ -1,7 +1,5 @@
 package supply.exige.markey.entries;
 
-import supply.exige.markey.U;
-
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,9 +17,62 @@ public class Class {
     }
 
     public void getWTA(double vouchers) {
-        LinkedHashMap candidates = new LinkedHashMap<String, Double>();
-        for (int i = 0; i < Math.ceil(vouchers); i++)
-            candidates.put(U.getValueByIndex(eScores, i), U.getKeyByIndex(eScores, i));
+        /*LinkedHashMap candidates = new LinkedHashMap<String, Double>();
+
+
+        /* TODO:
+        - Check the amount of path traversal per EScore
+        - Compare Path Traversal Amounts
+        - Choose Farthest Traversal
+
+        -> Convert Voucher TO EScore
+        -> See Which value is the largests
+        -> traverse in 0.5 increments
+         */
+
+        /*    public double getEScore() {
+        if (max - achieved == 0) return 0;
+        return (1 - (achieved / max)) * weightFactor;
+    }*/
+
+        eScores.clear();
+        double traverseCount = vouchers / 0.5;
+        System.out.println(">>> Traverse Count=" + traverseCount);
+        double[] travereses = new double[marks.length];
+        for (int t = 0; t < traverseCount; t++) { // Traverse by 0.5
+            System.out.println("\nTRAVERSAL #" + t + "\n");
+            for (int i = 0; i < marks.length; i++) {
+                MarkEntry entry = marks[i];
+                double traversal = (0.5 / entry.getMax()) * entry.getWeightFactor();
+                if (entry.getEScore() == 0) traversal = 0;
+                travereses[i] = traversal;
+            }
+
+            int highestID = 0;
+            for (int id = 0; id < marks.length; id++) {
+                System.out.println(marks[id].getName() + " has TRAVERSAL SCORE: " + travereses[id]);
+                if (travereses[id] > travereses[highestID]) highestID = id;
+            }
+
+            marks[highestID].addVoucher();
+
+            storeEScores();
+            sortEScores();
+            printEScores();
+        }
+
+        System.out.println("\nRESULT\n");
+        sortEScores();
+
+        for (int i = 0; i < marks.length; i++) {
+            System.out.println(marks[i].getName() + " should have: " + marks[i].getVouchers() + " vouchers");
+        }
+
+        solidify();
+        System.out.println("\n Estimated (Post-Voucher) Average: %" + getAverage());
+    }
+
+    private void traversel() {
 
     }
 
@@ -39,10 +90,26 @@ public class Class {
 
     public void setMarks(MarkEntry[] marks) {
         this.marks = marks;
+        storeEScores();
+        sortEScores();
+    }
+
+    private void solidify(){
+        for (int i = 0; i < marks.length;i++){
+            marks[i].setAchieved(marks[i].getAchieved() + marks[i].getVouchers());
+            //marks[i].setVouchers(0);
+        }
+    }
+
+    private void storeEScores() {
+        eScores.clear();
         for (int i = 0; i < marks.length; i++) {
             MarkEntry entry = marks[i];
             eScores.put(entry.getName(), entry.getEScore());
         }
+    }
+
+    private void sortEScores() {
         // now let's sort the map in decreasing order of value
         LinkedHashMap<String, Double> sorted = eScores
                 .entrySet()
