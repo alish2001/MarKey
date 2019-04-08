@@ -17,15 +17,15 @@ public class MarkEntry {
         this.category = category;
     }
 
-    public void addVoucher(){
+    public void addVoucher() {
         this.vouchers += 0.5;
     }
 
-    public void setVouchers(double vouchers){
+    public void setVouchers(double vouchers) {
         this.vouchers = vouchers;
     }
 
-    public double getVouchers(){
+    public double getVouchers() {
         return vouchers;
     }
 
@@ -55,7 +55,7 @@ public class MarkEntry {
 
     public double getEScore() {
         if (max - achieved == 0) return 0;
-        return (1 - ((achieved + vouchers)/ max)) * weightFactor;
+        return (1 - ((achieved + vouchers) / max)) * weightFactor;
     }
 
     public double getWeightFactor() {

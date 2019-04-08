@@ -94,8 +94,8 @@ public class Class {
         sortEScores();
     }
 
-    private void solidify(){
-        for (int i = 0; i < marks.length;i++){
+    private void solidify() {
+        for (int i = 0; i < marks.length; i++) {
             marks[i].setAchieved(marks[i].getAchieved() + marks[i].getVouchers());
             //marks[i].setVouchers(0);
         }
