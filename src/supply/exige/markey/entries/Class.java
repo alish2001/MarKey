@@ -72,10 +72,6 @@ public class Class {
         System.out.println("\n Estimated (Post-Voucher) Average: %" + getAverage());
     }
 
-    private void traversel() {
-
-    }
-
     public String getName() {
         return name;
     }

@@ -62,6 +62,10 @@ public class MarkEntry {
         return weightFactor;
     }
 
+    public void setWeightFactor(double weightFactor) {
+        this.weightFactor = weightFactor;
+    }
+
     public Category getCategory() {
         return category;
     }
