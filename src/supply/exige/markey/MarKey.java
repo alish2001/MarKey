@@ -6,7 +6,7 @@ import supply.exige.markey.classes.Testing;
 
 public class MarKey {
 
-    public static final double vouchers = 5;
+    public static final double vouchers = 6.5;
     public static final Chemistry chem = new Chemistry();
     public static final Calculus calc = new Calculus();
     public static final Testing test = new Testing();

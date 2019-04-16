@@ -18,7 +18,7 @@ public class Calculus extends Class {
                 new MathEntry("Application of Derivatives Test", "35/40"),
                 new MathEntry("Log Deriv Quiz", "20/24"),
                 new MathEntry("Log Deriv Test", "38.5/47"),
-                new MathEntry("Potential Quiz", "18/18"),
+                new MathEntry("Curve Sketching Quiz", "22/22"),
 
         };
 
